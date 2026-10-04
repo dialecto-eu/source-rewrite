@@ -123,7 +123,7 @@ To control the commit yourself, leave `commit` off (the default). The action the
 | Input | Default | Description |
 | --- | --- | --- |
 | `pr-body` | the event payload | Overrides the pull request body to parse. Skips the pull request checks below, because the workflow vouches for it. |
-| `branch-prefix` | `dlocal/` | Apply only when the pull request's head branch starts with this. Dialecto's branches do. Empty disables the check. |
+| `branch-prefix` | `dialecto/` | Apply only when the pull request's head branch starts with this. Dialecto's branches do. Empty disables the check. |
 | `allowed-authors` | empty | Comma- or space-separated logins allowed to author the pull request, for example your Dialecto app's bot. Empty allows any author. |
 | `working-directory` | `$GITHUB_WORKSPACE` | The repository root that candidate paths resolve against. |
 | `anchor-window` | `25` | How many lines around `start_line` to search when the captured call has drifted. |

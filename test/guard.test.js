@@ -66,29 +66,29 @@ test("missing, empty and odd paths are refused", () => {
 function pr(overrides = {}) {
   return {
     user: { login: "dialecto[bot]" },
-    head: { ref: "dlocal/translations", repo: { full_name: "acme/site" } },
+    head: { ref: "dialecto/translations", repo: { full_name: "acme/site" } },
     base: { repo: { full_name: "acme/site" } },
     ...overrides,
   };
 }
 
 test("Dialecto's own pull request is allowed", () => {
-  assert.equal(pullRequestRefusal(pr(), { branchPrefix: "dlocal/" }), null);
+  assert.equal(pullRequestRefusal(pr(), { branchPrefix: "dialecto/" }), null);
   assert.equal(
-    pullRequestRefusal(pr(), { branchPrefix: "dlocal/", allowedAuthors: ["dialecto[bot]"] }),
+    pullRequestRefusal(pr(), { branchPrefix: "dialecto/", allowedAuthors: ["dialecto[bot]"] }),
     null
   );
 });
 
 test("a fork's pull request is refused", () => {
-  const fork = pr({ head: { ref: "dlocal/translations", repo: { full_name: "mallory/site" } } });
-  assert.equal(pullRequestRefusal(fork, { branchPrefix: "dlocal/" }), "fork");
-  assert.equal(pullRequestRefusal(pr({ head: { ref: "dlocal/x" } }), {}), "fork");
+  const fork = pr({ head: { ref: "dialecto/translations", repo: { full_name: "mallory/site" } } });
+  assert.equal(pullRequestRefusal(fork, { branchPrefix: "dialecto/" }), "fork");
+  assert.equal(pullRequestRefusal(pr({ head: { ref: "dialecto/x" } }), {}), "fork");
 });
 
 test("another branch or an unlisted author is refused", () => {
   const other = pr({ head: { ref: "feature/x", repo: { full_name: "acme/site" } } });
-  assert.equal(pullRequestRefusal(other, { branchPrefix: "dlocal/" }), "branch");
+  assert.equal(pullRequestRefusal(other, { branchPrefix: "dialecto/" }), "branch");
   assert.equal(pullRequestRefusal(other, { branchPrefix: "" }), null);
   assert.equal(
     pullRequestRefusal(pr({ user: { login: "mallory" } }), { allowedAuthors: ["dialecto[bot]"] }),

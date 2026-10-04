@@ -11,9 +11,9 @@ inputs:
     description: "Override the PR body to parse (skips the pull request checks below; the workflow vouches for it). Defaults to the pull_request event payload's body."
     required: false
   branch-prefix:
-    description: "Apply only on pull requests whose head branch starts with this (Dialecto opens its pull requests on dlocal/ branches). Empty disables the check."
+    description: "Apply only on pull requests whose head branch starts with this (Dialecto opens its pull requests on dialecto/ branches). Empty disables the check."
     required: false
-    default: "dlocal/"
+    default: "dialecto/"
   allowed-authors:
     description: "Comma- or space-separated GitHub logins allowed to author the pull request (for example your Dialecto app's bot). Empty allows any author."
     required: false
