@@ -1,0 +1,24 @@
+{
+  "name": "dialecto-source-rewrite",
+  "version": "1.0.0",
+  "description": "GitHub Action that applies Dialecto's computed call-site rewrites (gettext and JSON keys) embedded in a pull request body.",
+  "type": "module",
+  "main": "index.js",
+  "private": true,
+  "scripts": {
+    "test": "node --test"
+  },
+  "engines": {
+    "node": ">=20"
+  },
+  "license": "MIT",
+  "author": "Mario Olivio Flores",
+  "homepage": "https://dialecto.eu/docs",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/dialecto-eu/source-rewrite.git"
+  },
+  "bugs": {
+    "url": "https://github.com/dialecto-eu/source-rewrite/issues"
+  }
+}

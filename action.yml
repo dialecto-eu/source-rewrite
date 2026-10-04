@@ -1,0 +1,61 @@
+name: "Dialecto source rewrite"
+description: "Apply Dialecto's computed call-site rewrites (gettext and JSON keys) embedded in a pull request body."
+author: "Mario Olivio Flores"
+
+branding:
+  icon: "edit-3"
+  color: "purple"
+
+inputs:
+  pr-body:
+    description: "Override the PR body to parse (skips the pull request checks below; the workflow vouches for it). Defaults to the pull_request event payload's body."
+    required: false
+  branch-prefix:
+    description: "Apply only on pull requests whose head branch starts with this (Dialecto opens its pull requests on dlocal/ branches). Empty disables the check."
+    required: false
+    default: "dlocal/"
+  allowed-authors:
+    description: "Comma- or space-separated GitHub logins allowed to author the pull request (for example your Dialecto app's bot). Empty allows any author."
+    required: false
+    default: ""
+  working-directory:
+    description: "Repo root that candidate paths are resolved against. Defaults to GITHUB_WORKSPACE."
+    required: false
+  anchor-window:
+    description: "How many lines around start_line to search when the captured match has drifted."
+    required: false
+    default: "25"
+  dry-run:
+    description: "Parse, re-anchor and report without writing any files."
+    required: false
+    default: "false"
+  commit:
+    description: "Commit and push the applied rewrites back to the PR head branch, with the credentials actions/checkout persisted (the job needs contents: write)."
+    required: false
+    default: "false"
+  commit-message:
+    description: "Commit message used when commit is true."
+    required: false
+    default: "Apply Dialecto source call-site rewrites"
+  fail-on-skip:
+    description: "Exit non-zero if any candidate was skipped (surfaces drift in CI)."
+    required: false
+    default: "false"
+
+outputs:
+  applied-count:
+    description: "Number of rewrites applied."
+  skipped-count:
+    description: "Number of candidates skipped (not found, ambiguous, drifted out of window, conflict)."
+  manual-count:
+    description: "Number of sites Dialecto flagged as unrewritable (need a human)."
+  changed-files:
+    description: "Newline-separated list of files modified."
+  applied:
+    description: "JSON array of applied edits ({ path, start_line, drift })."
+  skipped:
+    description: "JSON array of skipped candidates ({ path, start_line, reason })."
+
+runs:
+  using: "node24"
+  main: "index.js"
